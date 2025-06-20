@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק צורות גיאומטריות</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>משחק צורות גיאומטריות</h1>
+            <div class="timer-container">
+                <span>זמן: </span>
+                <span id="timer">00:00</span>
+            </div>
+            <div class="score-container">
+                <span>ניקוד: </span>
+                <span id="score">0</span>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <div class="columns">
+                <div class="column" id="names-column">
+                    <h2>שמות הצורות</h2>
+                    <div class="items" id="names-items"></div>
+                </div>
+                
+                <div class="column" id="definitions-column">
+                    <h2>הגדרות</h2>
+                    <div class="items" id="definitions-items"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="start-btn" class="btn primary">התחל משחק</button>
+            <button id="reset-btn" class="btn secondary">משחק חדש</button>
+        </div>
+
+        <div id="game-over" class="modal hidden">
+            <div class="modal-content">
+                <h2>המשחק הסתיים!</h2>
+                <p>הניקוד שלך: <span id="final-score">0</span></p>
+                <p>הזמן: <span id="final-time">00:00</span></p>
+                <button id="play-again-btn" class="btn primary">שחק שוב</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 
