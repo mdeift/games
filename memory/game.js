@@ -292,7 +292,7 @@ class UnicornMemoryGame {
             if (this.playerCount > 1) {
                 this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
                 this.currentPlayer = this.playerOrder[this.currentPlayerIndex];
-                this.showToast(`תור של ${this.playerNames[this.currentPlayer]}`, 'info', 1500);
+                this.showToast(`תור של ${this.playerNames[this.currentPlayer]}`, 'info', 1000);
             }
         }
 
