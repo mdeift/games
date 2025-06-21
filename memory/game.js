@@ -292,7 +292,7 @@ class UnicornMemoryGame {
             if (this.playerCount > 1) {
                 this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
                 this.currentPlayer = this.playerOrder[this.currentPlayerIndex];
-                this.showToast(`תור של ${this.playerNames[this.currentPlayer]}`, 'info');
+                this.showToast(`תור של ${this.playerNames[this.currentPlayer]}`, 'info', 1500);
             }
         }
 
@@ -300,7 +300,7 @@ class UnicornMemoryGame {
         this.updateDisplay();
     }
 
-    showToast(message, type = 'info') {
+    showToast(message, type = 'info', duration = 2500) {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.textContent = message;
@@ -315,7 +315,7 @@ class UnicornMemoryGame {
             if (this.toastContainer.childElementCount === 0) {
                 this.gameBoard.classList.remove('no-clicks');
             }
-        }, 2500);
+        }, duration);
     }
 
     startTimer() {

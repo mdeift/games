@@ -314,7 +314,7 @@ h1 {
 
 .player-name-inputs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
     gap: 15px;
     justify-content: center;
     max-width: 500px;
@@ -322,9 +322,10 @@ h1 {
 }
 
 .name-input {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .name-input label {
@@ -345,6 +346,7 @@ h1 {
     transition: all 0.3s ease;
     color: white;
     font-weight: bold;
+    background: rgba(0,0,0,0.1);
 }
 
 .name-input input::placeholder {
@@ -355,6 +357,11 @@ h1 {
     outline: none;
     box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
 }
+
+.name-input.player1 input { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+.name-input.player2 input { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+.name-input.player3 input { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+.name-input.player4 input { background: linear-gradient(135deg, #f9ca24, #f0932b); }
 
 /* Toast Styles */
 .toast-container {
@@ -449,6 +456,12 @@ h1 {
     margin: 15px 0;
 }
 
+@media (min-width: 600px) {
+    .player-name-inputs {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 @media (max-width: 1024px) {
     .game-board.cards-10 { grid-template-columns: repeat(5, 1fr); }
     .game-board.cards-12 { grid-template-columns: repeat(6, 1fr); }
@@ -497,7 +510,6 @@ h1 {
     }
 
     .player-count-buttons, .card-count-buttons {
-        grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
 
