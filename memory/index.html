@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק זיכרון חד קרן</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🦄 משחק זיכרון חד קרן 🦄</h1>
+            <div class="game-info">
+                <div class="timer-container">
+                    <span>⏱️ זמן: </span>
+                    <span id="timer">00:00</span>
+                </div>
+                <div class="moves-container">
+                    <span>🔄 מהלכים: </span>
+                    <span id="moves">0</span>
+                </div>
+                <div class="score-container">
+                    <span>⭐ ניקוד: </span>
+                    <span id="score">0</span>
+                </div>
+            </div>
+            <div class="player-info" id="player-info" style="display: none;">
+                <div class="current-player" id="current-player-container">
+                    <span>🎮 שחקן נוכחי: </span>
+                    <span id="current-player">שחקן 1</span>
+                </div>
+                <div class="player-scores" id="player-scores">
+                    <!-- Player scores will be generated here -->
+                </div>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <div class="game-board" id="game-board">
+                <!-- Cards will be generated here -->
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="start-btn" class="btn primary">🎮 התחל משחק</button>
+            <button id="reset-btn" class="btn secondary">🔄 משחק חדש</button>
+        </div>
+
+        <!-- Game Setup Modal -->
+        <div id="setup-modal" class="modal">
+            <div class="modal-content setup-modal-content">
+                <h2>🎮 הגדרת משחק</h2>
+                
+                <div class="setup-section">
+                    <h3>👥 מספר שחקנים</h3>
+                    <div class="player-count-buttons">
+                        <button class="player-count-btn active" data-players="1">שחקן אחד</button>
+                        <button class="player-count-btn" data-players="2">שני שחקנים</button>
+                        <button class="player-count-btn" data-players="3">שלושה שחקנים</button>
+                        <button class="player-count-btn" data-players="4">ארבעה שחקנים</button>
+                    </div>
+                </div>
+
+                <div class="setup-section" id="player-names-section" style="display: none;">
+                    <h3>📝 שמות השחקנים</h3>
+                    <div class="player-name-inputs">
+                        <div class="name-input" id="player1-name-container">
+                            <label for="player1-name">שחקן 1:</label>
+                            <input type="text" id="player1-name" placeholder="הכנס שם" value="שחקן 1">
+                        </div>
+                        <div class="name-input" id="player2-name-container" style="display: none;">
+                            <label for="player2-name">שחקן 2:</label>
+                            <input type="text" id="player2-name" placeholder="הכנס שם" value="שחקן 2">
+                        </div>
+                        <div class="name-input" id="player3-name-container" style="display: none;">
+                            <label for="player3-name">שחקן 3:</label>
+                            <input type="text" id="player3-name" placeholder="הכנס שם" value="שחקן 3">
+                        </div>
+                        <div class="name-input" id="player4-name-container" style="display: none;">
+                            <label for="player4-name">שחקן 4:</label>
+                            <input type="text" id="player4-name" placeholder="הכנס שם" value="שחקן 4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setup-section">
+                    <h3>🃏 מספר קלפים</h3>
+                    <div class="card-count-buttons">
+                        <button class="card-count-btn active" data-cards="8">8 זוגות (16 קלפים)</button>
+                        <button class="card-count-btn" data-cards="10">10 זוגות (20 קלפים)</button>
+                        <button class="card-count-btn" data-cards="12">12 זוגות (24 קלפים)</button>
+                    </div>
+                </div>
+
+                <button id="start-game-btn" class="btn primary">🎮 התחל משחק</button>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="game-over" class="modal hidden">
+            <div class="modal-content">
+                <h2>🎉 המשחק הסתיים! 🎉</h2>
+                <div id="winner-info">
+                    <p>🏆 המנצח: <span id="winner">שחקן 1</span></p>
+                    <p>⏱️ זמן: <span id="final-time">00:00</span></p>
+                    <p>🔄 מהלכים: <span id="final-moves">0</span></p>
+                </div>
+                <div id="final-scores">
+                    <!-- Final scores will be generated here -->
+                </div>
+                <button id="play-again-btn" class="btn primary">🎮 שחק שוב</button>
+            </div>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 
