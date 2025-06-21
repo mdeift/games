@@ -161,6 +161,8 @@ h1 {
     border: 3px solid #fff;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translate3d(0,0,0);
 }
 
 .card:hover {
@@ -195,11 +197,15 @@ h1 {
     background: linear-gradient(135deg, #ff69b4, #8a2be2);
     color: white;
     transform: rotateY(180deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .card-back {
     background: linear-gradient(135deg, #ffd700, #ffa500);
     color: white;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 @keyframes sparkle {
