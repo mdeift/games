@@ -37,6 +37,8 @@ class UnicornMemoryGame {
         this.isGameActive = false;
         this.playerCount = 1;
         this.currentPlayer = 1;
+        this.playerOrder = [];
+        this.currentPlayerIndex = 0;
         this.playerNames = { 1: 'שחקן 1', 2: 'שחקן 2', 3: 'שחקן 3', 4: 'שחקן 4' };
         this.playerScores = { 1: 0, 2: 0, 3: 0, 4: 0 };
         this.cardCount = 8;
@@ -141,7 +143,18 @@ class UnicornMemoryGame {
         this.flippedCards = [];
         this.startTime = Date.now();
         this.playerScores = { 1: 0, 2: 0, 3: 0, 4: 0 };
-        this.currentPlayer = 1;
+        this.playerOrder = [];
+
+        if (this.playerCount > 1) {
+            for (let i = 1; i <= this.playerCount; i++) {
+                this.playerOrder.push(i);
+            }
+            this.playerOrder.sort(() => Math.random() - 0.5);
+            this.currentPlayerIndex = 0;
+            this.currentPlayer = this.playerOrder[this.currentPlayerIndex];
+        } else {
+            this.currentPlayer = 1;
+        }
         
         this.updateDisplay();
         this.startTimer();
@@ -150,7 +163,7 @@ class UnicornMemoryGame {
         this.startBtn.disabled = true;
         this.startBtn.textContent = '🎮 המשחק פעיל';
         
-        const startMessage = this.playerCount > 1 ? `תור של ${this.playerNames[1]}` : 'בהצלחה!';
+        const startMessage = this.playerCount > 1 ? `תור של ${this.playerNames[this.currentPlayer]}` : 'בהצלחה!';
         this.showToast(`המשחק התחיל! ${startMessage}`, 'info');
     }
 
@@ -162,6 +175,8 @@ class UnicornMemoryGame {
         this.matchedPairs = [];
         this.flippedCards = [];
         this.playerScores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        this.playerOrder = [];
+        this.currentPlayerIndex = 0;
         
         this.updateDisplay();
         this.updateTimer('00:00');
@@ -190,7 +205,7 @@ class UnicornMemoryGame {
             this.gameBoard.appendChild(cardElement);
         });
 
-        this.gameBoard.className = `game-board cards-${this.cardCount}`;
+        this.gameBoard.className = 'game-board';
     }
 
     createCardElement(card, index) {
@@ -246,12 +261,19 @@ class UnicornMemoryGame {
 
             if (this.playerCount > 1) {
                 this.playerScores[this.currentPlayer] += 1;
-                this.showToast(`כל הכבוד ${this.playerNames[this.currentPlayer]}!`, 'success');
-            } else {
-                this.showToast('כל הכבוד!', 'success');
+            }
+            
+            const isGameOver = this.matchedPairs.length === this.cardCount;
+
+            if (!isGameOver) {
+                if (this.playerCount > 1) {
+                    this.showToast(`כל הכבוד ${this.playerNames[this.currentPlayer]}!`, 'success');
+                } else {
+                    this.showToast('כל הכבוד!', 'success');
+                }
             }
 
-            if (this.matchedPairs.length === this.cardCount) {
+            if (isGameOver) {
                 setTimeout(() => this.endGame(), 500);
             }
         } else {
@@ -268,8 +290,9 @@ class UnicornMemoryGame {
             }, 1000);
 
             if (this.playerCount > 1) {
-                this.currentPlayer = this.currentPlayer === this.playerCount ? 1 : this.currentPlayer + 1;
-                this.showToast(`תורו של ${this.playerNames[this.currentPlayer]}`, 'info');
+                this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
+                this.currentPlayer = this.playerOrder[this.currentPlayerIndex];
+                this.showToast(`תור של ${this.playerNames[this.currentPlayer]}`, 'info');
             }
         }
 
@@ -283,10 +306,14 @@ class UnicornMemoryGame {
         toast.textContent = message;
         
         this.toastContainer.appendChild(toast);
+        this.gameBoard.classList.add('no-clicks');
         
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.parentNode.removeChild(toast);
+            }
+            if (this.toastContainer.childElementCount === 0) {
+                this.gameBoard.classList.remove('no-clicks');
             }
         }, 2500);
     }
@@ -359,7 +386,15 @@ class UnicornMemoryGame {
         
         this.gameOverModal.classList.remove('hidden');
         
-        this.showToast(`🏆 ${winner} ניצח!`, 'success');
+        let toastMessage;
+        if (this.playerCount === 1) {
+            toastMessage = '🎉 כל הכבוד! 🎉';
+        } else if (winner.includes('תיקו') || winner.includes('אף אחד')) {
+            toastMessage = `🤝 ${winner} 🤝`;
+        } else {
+            toastMessage = `🏆 ניצחון של ${winner}! 🏆`;
+        }
+        this.showToast(toastMessage, 'success');
     }
 
     determineWinner() {
@@ -384,9 +419,9 @@ class UnicornMemoryGame {
         }
 
         if (winners.length === 1) {
-            return `${winners[0]} 🏆`;
+            return `${winners[0]}`;
         } else {
-            return `תיקו בין: ${winners.join(', ')}! 🤝`;
+            return `תיקו בין: ${winners.join(', ')}!`;
         }
     }
 
