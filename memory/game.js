@@ -267,9 +267,9 @@ class UnicornMemoryGame {
 
             if (!isGameOver) {
                 if (this.playerCount > 1) {
-                    this.showToast(`כל הכבוד ${this.playerNames[this.currentPlayer]}!`, 'success');
+                    this.showToast(`כל הכבוד ${this.playerNames[this.currentPlayer]}!`, 'success', 1000);
                 } else {
-                    this.showToast('כל הכבוד!', 'success');
+                    this.showToast('כל הכבוד!', 'success', 1000);
                 }
             }
 
